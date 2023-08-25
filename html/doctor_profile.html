@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../css/doctor_profile.css" />
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="profcontainer">
+      <div class="profile-card">
+        <div class="profile-image">
+          <label for="profile-upload" class="profile-image-upload">
+            <input
+              type="file"
+              id="profile-upload"
+              accept="image/*"
+              onchange="handleImageUpload(event)"
+            />
+            <img
+              id="profile-image"
+              src="../assets/profile.png"
+              alt="Doctor Profile"
+            />
+          </label>
+        </div>
+        <div class="profile-details">
+          <div class="profile-name">
+            Dr. John Doe
+          </div>
+          <div class="profile-info">Specialty: Cardiology</div>
+          <div class="profile-info">Hospital: St. Medical Center</div>
+          <div class="profile-info">Location: New York, USA</div>
+          <div class="profile-info">Contact: john.doe@example.com</div>
+          <button class="profile-button">Edit Profile</button>
+        </div>
+      </div>
+      <div class="research-section">
+        <div class="research-title">Researches and Publications</div>
+        <div class="research-item">
+          - "Advances in Heart Disease Treatment" - Journal of Cardiology, 2022
+        </div>
+        <div class="research-item">
+          - "Innovations in Cardiovascular Surgery" - Journal of Medical
+          Science, 2021
+        </div>
+        <div class="research-item">
+          - "Advances in Heart Disease Treatment" - Journal of Cardiology, 2022
+        </div>
+        <div class="research-item">
+          - "Innovations in Cardiovascular Surgery" - Journal of Medical
+          Science, 2021
+        </div>
+      </div>
+      <div class="degree-section">
+        <div class="degree-title">Degrees and Certifications</div>
+        <div class="degree-item">
+          - MD in Cardiology - Medical University, 2010
+        </div>
+        <div class="degree-item">
+          - Board Certified Cardiologist - American Board of Cardiology, 2012
+        </div>
+        <div class="degree-item">
+          - MD in Cardiology - Medical University, 2010
+        </div>
+        <div class="degree-item">
+          - Board Certified Cardiologist - American Board of Cardiology, 2012
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const navbarContainer = document.getElementById('navbar-container')
+
+    fetch('./doctor_navbar.html')
+      .then((response) => response.text())
+      .then((content) => {
+        navbarContainer.innerHTML = content
+      })
+
+    const profileImage = document.getElementById('profile-image')
+
+    function handleImageUpload(event) {
+      const file = event.target.files[0]
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = function (e) {
+          profileImage.src = e.target.result
+        }
+        reader.readAsDataURL(file)
+      }
+    }
+  </script>
+</html>

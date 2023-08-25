@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Profile</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/patient_profile.css">
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <div class="container">
+    <div class="profile-header profile-animation">
+      <div class="profile-image">
+        <label for="profile-upload" class="profile-image-upload">
+          <input
+            type="file"
+            id="profile-upload"
+            accept="image/*"
+            onchange="handleImageUpload(event)"
+          />
+          <span class="pencil-icon">
+            <i class="fas fa-pencil-alt"></i>
+          </span>
+          <img
+            id="profile-image"
+            src="../assets/profile.png"
+            alt="Doctor Profile"
+          />
+        </label>
+      </div>
+      
+      <div class="profile-name">Patient's Name</div>
+      <div class="profile-email">patient@gmail.com</div>
+      <div class="profile-content">
+        <h2>Introducing Revolutionary Daily Care: Your Online Health Companion</h2>
+        <p>Are you tired of the inconvenience and wait times associated with traditional doctor visits for common ailments? We understand that your health can't wait, and that's why we're thrilled to introduce our groundbreaking online health consultation service for daily common diseases.</p>
+        <h2>Experience Ultimate Convenience</h2>
+        <p>Gone are the days of scheduling appointments, traveling to the clinic, and waiting in crowded waiting rooms. With our platform, you can now receive expert medical advice and consultations from the comfort of your own home. No more disrupting your day or compromising your safety – we bring the doctor's expertise directly to you.</p>
+        <h2>Expertise at Your Fingertips</h2>
+        <p>Our team of experienced medical professionals specializes in diagnosing and treating a wide range of common ailments. From allergies, colds, and headaches to skin issues and digestive problems, our doctors are here to provide personalized guidance and effective treatment plans tailored to your unique needs.</p>
+        <h2>Swift and Seamless</h2>
+        <p>Getting started is as easy as a few taps on your device. Simply sign up, describe your symptoms, and connect with a certified doctor in real-time. No more waiting for appointments or enduring long queues.you get medical attention when you need it most.</p>
+        <h2>Your Health, Your Choice</h2>
+        <p>Our flexible subscription plans allow you to choose the level of care that suits you best. Whether you prefer pay-as-you-go consultations or a comprehensive monthly plan, we have options designed to cater to your preferences and budget.</p>
+        <h2>Try Us Risk-Free</h2>
+        <p>Curious about how our platform works? We're offering a risk-free 1-day trial where you can experience the convenience and benefits of our online consultation services. Get personalized medical advice, expert guidance, and peace of mind all within a single day.</p>
+        <h3 id="intro-paragraph" class="cursor-typing"></h3>
+      </div>
+    </div>
+    <div class="subscription-cards">
+      <div class="subscription-card" onclick="subscribe('monthly')">
+        <div class="subscription-title">Monthly Plan</div>
+        <div class="subscription-details">Connect with your doctor on a monthly basis</div>
+        <div class="subscription-price">₹600/month</div>
+        <button class="subscription-button">Get Started</button>
+      </div>
+      <div class="subscription-card" onclick="subscribe('yearly')">
+        <div class="subscription-title">Yearly Plan</div>
+        <div class="subscription-details">Premium health plan with comprehensive checkups</div>
+        <div class="subscription-price">₹1000/year</div>
+        <button class="subscription-button">Get Premium</button>
+      </div>
+      <div class="subscription-card" onclick="startFreeTrial()">
+        <div class="subscription-title">Free Trial</div>
+        <div class="subscription-details">Try our services free for 1 day</div>
+        <div class="subscription-price">Countdown: <span id="trialCountdown">24:00:00</span></div>
+        <button class="subscription-button">Start Trial</button>
+      </div>
+    </div>
+    <iframe
+      src="footer.html"
+      frameborder="0"
+      scrolling="no"
+      style="width: 100%; height: 300px;"
+    ></iframe>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const profileImage = document.getElementById('profile-image');
+      function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            profileImage.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+      const navbarContainer = document.getElementById('navbar-container');
+      fetch('./navbar.html')
+        .then((response) => response.text())
+        .then((content) => {
+          navbarContainer.innerHTML = content;
+        });
+      let trialTime = 86400; // 24 hours in seconds
+      let trialTimerInterval;
+      function startTrialCountdown() {
+        trialTimerInterval = setInterval(function () {
+          const hours = Math.floor(trialTime / 3600);
+          const minutes = Math.floor((trialTime % 3600) / 60);
+          const seconds = trialTime % 60;
+          document.getElementById('trialCountdown').textContent = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+          if (trialTime > 0) {
+            trialTime--;
+          } else {
+            clearInterval(trialTimerInterval);
+            document.getElementById('trialCountdown').textContent = 'Expired';
+          }
+        }, 1000);
+      }
+      function startFreeTrial() {
+        startTrialCountdown();
+        alert('Free Trial started!');
+      }
+      function formatTime(time) {
+        return time < 10 ? `0${time}` : time;
+      }
+      const introParagraph = document.getElementById('intro-paragraph');
+      const introText = "Your Doctor, Your Choice ..Join Us Now!";
+      let charIndex = 0;
+      function typeIntroText() {
+        if (charIndex < introText.length) {
+          introParagraph.innerHTML += introText.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeIntroText, 50);
+        }
+      }
+      typeIntroText();
+    </script>
+  </body>
+</html>

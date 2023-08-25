@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <title>Doctor Notifications</title>
+  </head>
+  <link rel="stylesheet" href="../css/doctor_notifications.css" />
+  <body>
+    <div id="navbar-container"></div>
+    <div class="notifcontainer">
+      <h1>Notifications</h1>
+      <ul class="notification-list" id="notification-list">
+        <!-- Notifications will be added dynamically here -->
+      </ul>
+    </div>
+    <div class="pagination">
+      <button class="pagination-button" id="previous-page">Previous</button>
+      <button class="pagination-button" id="next-page">Next</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+  <script>
+    const navbarContainer = document.getElementById('navbar-container')
+
+    fetch('./doctor_navbar.html')
+      .then((response) => response.text())
+      .then((content) => {
+        navbarContainer.innerHTML = content
+      })
+    const notificationList = document.getElementById('notification-list')
+
+    const notifications = [
+      {
+        title: 'New Message',
+        content: 'You have a new message from Patient A.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'New Message',
+        content: 'You have a new message from Patient A.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'Appointment Reminder',
+        content: 'Upcoming appointment at 2:00 PM.',
+      },
+      {
+        title: 'New Message',
+        content: 'You have a new message from Patient A.',
+      },
+    ]
+
+    function displayNotifications() {
+      notifications.forEach((notification) => {
+        const notificationItem = document.createElement('li')
+        notificationItem.className = 'notification'
+        notificationItem.innerHTML = `
+      <h3>${notification.title}</h3>
+      <p>${notification.content}</p>
+    `
+        notificationList.appendChild(notificationItem)
+      })
+    }
+
+    // Load notifications when the page loads
+    window.addEventListener('load', displayNotifications)
+    const itemsPerPage = 10
+    let currentPage = 1
+
+    const previousPageButton = document.getElementById('previous-page')
+    const nextPageButton = document.getElementById('next-page')
+
+    previousPageButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--
+        updateNotificationList()
+      }
+    })
+
+    nextPageButton.addEventListener('click', () => {
+      const totalPageCount = Math.ceil(notifications.length / itemsPerPage)
+      if (currentPage < totalPageCount) {
+        currentPage++
+        updateNotificationList()
+      }
+    })
+
+    function updateNotificationList() {
+      const startIdx = (currentPage - 1) * itemsPerPage
+      const endIdx = startIdx + itemsPerPage
+      const displayedNotifications = notifications.slice(startIdx, endIdx)
+
+      notificationList.innerHTML = '' // Clear existing notifications
+
+      displayedNotifications.forEach((notification) => {
+        const notificationItem = document.createElement('li')
+        notificationItem.className = 'notification'
+        notificationItem.innerHTML = `
+          <h3>${notification.title}</h3>
+          <p>${notification.content}</p>
+        `
+        notificationList.appendChild(notificationItem)
+      })
+    }
+
+    window.addEventListener('load', () => {
+      displayNotifications()
+      updateNotificationList()
+    })
+  </script>
+</html>
