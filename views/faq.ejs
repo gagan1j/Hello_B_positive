@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ</title>
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="shortcut icon" href="favicon.ico?v=2" type="image/x-icon" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+<link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+<!-- FontAwesome CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+<!-- <link rel="stylesheet" href="css2/foodstyl.css"> -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="css2/foodstyl.css">
+
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
+    
+    .text-secondary {
+    color: #3d5d6f;
+  }
+  
+  .h4,
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  h2 {
+    color: #333;
+  }
+  
+  
+  .arw{
+    font-family: 'FontAwesome';
+    font-weight: 400;
+    font-size: 1.2rem;
+    font-style: normal;
+  }
+  
+  .right-0 {
+    right: 0;
+  }
+  
+  .top-0 {
+    top: 0;
+  }
+  
+  .h-100 {
+    height: 100%;
+  }
+  
+  a.text-secondary:focus,
+  a.text-secondary:hover {
+    text-decoration: none;
+    color: #22343e;
+  }
+  
+  #accordion .fa-caret-down {
+    transition: -webkit-transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+  }
+  
+  #accordion a[aria-expanded=true] .fa-caret-down {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+
+    
+  }
+  .txt{
+    font-family: 'Acme', sans-serif;
+    font-size: xx-large;
+    word-spacing:1rem;
+  }
+  h2:hover{
+    color: red;
+  }
+
+  
+</style>
+<body style="background-color: #6f70d8;">
+  <%- include("navbar")-%>
+  
+  
+    <div class="text-center">
+        <h2 class="mt-5 mb-5">FAQ</h2>
+      </div>
+      <section class="container my-5" id="maincontent">
+        <section id="accordion">
+          <a class="py-3 d-block h-100 w-100 position-relative z-index-1 pr-1 text-secondary border-top" aria-controls="faq-17" aria-expanded="false" data-toggle="collapse" href="#faq-17" role="button">
+            <div class="position-relative">
+              <h2 class="h4 m-0 pr-3">
+                Do we need to apply or register to qualify for the Supplemental Drive-Through Distributions?
+              </h2>
+              <div class="position-absolute top-0 right-0 h-100 d-flex align-items-center">
+                <i class="fa fa-caret-down arw"></i>
+              </div>
+            </div>
+          </a>
+          <div class="collapse" id="faq-17" style="background-color: aquamarine;">
+            <div class="card card-body border-0 p-0">
+              <p>No,All people are welcome to come to the sites without applying or registering to qualify. We only ask that all recipients abide by the current Food safety and Standards regulations as the Food Bank’s priority is to keep all clients, staff, volunteers and agency partners safe. People can pick up for more than one person/family.
+                When they are asked how many they are picking up, they can mention they are picking up for another household.</p>
+    
+            </div>
+          </div>
+    
+          <a class="py-3 d-block h-100 w-100 position-relative z-index-1 pr-1 text-secondary border-top" aria-controls="faq-18" aria-expanded="false" data-toggle="collapse" href="#faq-18" role="button">
+            <div class="position-relative">
+              <h2 class="h4 m-0 pr-3">
+                If there is no transportation, Can someone walk To Pick up the Food Boxes?
+              </h2>
+              <div class="position-absolute top-0 right-0 h-100 d-flex align-items-center">
+                <i class="fa fa-caret-down arw"></i>
+              </div>
+            </div>
+          </a>
+          <div class="collapse" id="faq-18" style="background-color: aquamarine;">
+            <div class="card card-body border-0 p-0">
+              <p>Our drive-through distributions are strictly for cars; however, some of our agency partners, made up of hundreds of food pantries, offer walk-ups. We recommend visiting Athisaya.org/findfood for food assistance programs in any specific area. 
+            </p>
+              <p>
+              </p>
+            </div>
+          </div>
+    
+          <a class="py-3 d-block h-100 w-100 position-relative z-index-1 pr-1 text-secondary border-top" aria-controls="faq-19" aria-expanded="false" data-toggle="collapse" href="#faq-19" role="button">
+            <div class="position-relative">
+              <h2 class="h4 m-0 pr-3">
+                What Comes in a Food Bank Box?
+              </h2>
+              <div class="position-absolute top-0 right-0 h-100 d-flex align-items-center">
+                <i class="fa fa-caret-down arw"></i>
+              </div>
+            </div>
+          </a>
+          <div class="collapse" id="faq-19" style="background-color: aquamarine;">
+            <div class="card card-body border-0 p-0">
+              <p>They vary depending on food donations; however, at the more recent distributions, there have been 80-pound boxes full of fresh produce, rice, soups, beans, rotis, and other shelf-stable items, designed to last a family of four for about ten days.
+                Since the pandemic, 1.1 million emergency food boxes have been distributed to families and individuals (3.3 million individuals served in total) through partner agencies and direct distributions.</p>
+      </p>
+              <p>
+              </p>
+            </div>
+          </div>
+    
+          <a class="py-3 d-block h-100 w-100 position-relative z-index-1 pr-1 text-secondary  border-top" aria-controls="faq-20" aria-expanded="false" data-toggle="collapse" href="#faq-20" role="button">
+            <div class="position-relative">
+              <h2 class="h4 m-0 pr-3">
+                What is the best email to reach you at?
+              </h2>
+              <div class="position-absolute top-0 right-0 h-100 d-flex align-items-center">
+                <i class="fa fa-caret-down arw"></i>
+              </div>
+            </div>
+          </a>
+          <div class="collapse" id="faq-20">
+            <div class="card card-body border-0 p-0">
+              <p>You can always Contact us athishayaseva@gmail.com!</p>
+              <p>
+              </p>
+            </div>
+          </div>
+    
+          <a class="py-3 d-block h-100 w-100 position-relative z-index-1 pr-1 text-secondary  border-top" aria-controls="faq-21" aria-expanded="false" data-toggle="collapse" href="#faq-21" role="button">
+            <div class="position-relative">
+              <h2 class="h4 m-0 pr-3">
+                I Didn’t Get a Chance To Attend a Distribution – How Can I Catch the Next One?
+              </h2>
+              <div class="position-absolute top-0 right-0 h-100 d-flex align-items-center">
+                <i class="fa fa-caret-down arw"></i>
+              </div>
+            </div>
+          </a>
+          <div class="collapse" id="faq-21">
+            <div class="card card-body border-0 p-0">
+              <p>We recommend bookmarking the Food Pantry Locator where you can enter your zip code to find food assistance programs within our 600+ agency partner network throughout Karnataka.</p>
+              <p>
+              </p>
+            </div>
+          </div>
+    
+          <a class="py-3 d-block h-100 w-100 position-relative z-index-1 pr-1 text-secondary  border-top" aria-controls="faq-22" aria-expanded="false" data-toggle="collapse" href="#faq-22" role="button">
+            <div class="position-relative">
+              <h2 class="h4 m-0 pr-3">
+                How Can I Help Join the Fight Against Hunger?
+              </h2>
+              <div class="position-absolute top-0 right-0 h-100 d-flex align-items-center">
+                <i class="fa fa-caret-down arw"></i>
+              </div>
+            </div>
+          </a>
+          <div class="collapse" id="faq-22">
+            <div class="card card-body border-0 p-0">
+              <p>The Food Bank cannot exist without the support of our community. With the unprecedented support of our generous donors, agency network, and volunteers, we can meet our neighbors’ heightened needs during the pandemic and beyond.</p>
+              <p>
+              </p>
+            </div>
+          </div>
+         
+        </section>
+      </section>
+   
+      
+      <div class="txt">
+      <p>Do u have any more questions ?</p>
+      <p>If yes then feel free to contact us or write it down here we will notify when our team answers<i class="fa fa-hand-o-down" aria-hidden="true"></i></p>
+      <form action="/faq" method="post">
+     <textarea name="faqu" id="fq" cols="100%" ></textarea>
+     <button type="submit" name="publish" class="btn btn-primary"  >publish</button>
+    </form>
+
+     </div>
+  <%- include("footer")-%>
+
+</body>
+</html>
