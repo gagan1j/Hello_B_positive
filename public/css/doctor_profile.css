@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #7fbcfacf;
+}
+.profcontainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.profile-card {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+.profile-image {
+  flex: 0 0 auto;
+  margin-right: 20px;
+}
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgb(23, 23, 23);
+  transition: all 0.5s;
+}
+
+.profile-image img:hover {
+  color: transparent;
+  transform: scale(1.1);
+}
+
+.profile-details {
+  flex: 1 1 auto;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.profile-info {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+}
+.profile-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.profile-button:hover {
+  background-color: #2980b9;
+}
+.research-section,
+.degree-section {
+  margin-top: 20px;
+}
+.research-title,
+.degree-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.research-item,
+.degree-item {
+  font-size: 16px;
+  color: #190606;
+  margin-bottom: 8px;
+}
+
+.research-item:hover,
+.degree-item:hover {
+  color: #504a4a;
+}
+
+.online-status {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-left: 5px;
+}

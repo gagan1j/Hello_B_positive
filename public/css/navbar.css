@@ -1,0 +1,109 @@
+.navbar {
+  background-color: #007bff;
+}
+
+.navbar-brand {
+  color: white;
+  font-weight: bold;
+  margin-left: 50px;
+}
+
+.navbar-nav {
+  margin-left: -100px;
+}
+
+.navbar-nav .nav-item .nav-link {
+  background-color: white;
+  color: black;
+  border-radius: 2rem;
+  margin-left: 2rem;
+  padding: 10px 20px;
+  transition: all 0.5s;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-nav .nav-item.active {
+  color: darkolivegreen;
+}
+
+.navbar-nav .nav-item .nav-link:active {
+  color: darkkhaki;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  background-color: #ffcd05;
+  border-radius: 2rem;
+  color: rgb(18, 47, 150);
+}
+
+.search-bar {
+  margin-top: 8px;
+  padding-right: 45px;
+  border-radius: 30px;
+  font-size: 16px;
+  margin-left: -32rem;
+  width: 240px;
+  background-color: #f4f4f4;
+  border: none;
+  padding: 12px 45px 12px 15px;
+  color: #666;
+  box-shadow: none;
+}
+
+.search-bar::placeholder {
+  color: #999;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15rem;
+  top: 30%;
+  color: #f4f4f4;
+  background-color: #02d132;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, padding 0.3s;
+}
+
+.position-relative:hover .search-icon {
+  background-color: #02d132;
+  transform: scale(1);
+  padding: 12px;
+}
+
+.sign-up-button {
+  background-color: #28a745;
+  border: none;
+}
+
+.sign-up-button:hover {
+  background-color: #218838;
+}
+
+.modal-content {
+  border-radius: 12px;
+  animation: fadeAnim 0.5s ease-in-out;
+}
+
+@keyframes fadeAnim {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.nav-tabs {
+  border: none;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,122 @@
+.logot{
+    font-family: 'Righteous', cursive;
+    font-size: 48px;
+}
+.im{
+ height:600px;
+}
+.heading{
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-family: 'Lumanosimo', cursive;
+}
+.intr {
+    text-align: center;
+    color: #279EFF;
+    font-size: larger;
+    margin-bottom: 0ex;
+}
+.int2 {
+    text-align: center;
+    font-size: larger;
+    margin-top: 0px;
+    color: #000;
+}
+#features{
+    padding-top:7%;
+    padding-bottom:7%;
+    padding-right: 15%;
+    padding-left: 15%;
+    position: relative;
+    left:80px;
+}
+#featu{
+    padding-top:7%;
+    padding-bottom:7%;
+    padding-right: 15%;
+    
+    
+}
+.row{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 120px;
+}
+.fa-4x{
+    margin-bottom: 1rem;
+}
+.headn {
+    color: #CD0404;
+}
+.fbox {
+    margin-top: 2px;
+    text-align: center;
+}
+.ico {
+    color:#0C356A;
+}
+.brd{
+    background-color: aquamarine;
+}
+.cu{
+    height: 200px;
+    position:relative;
+    left:100px;
+    top:40px;
+    border: none;
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+
+    transition: transform 0.3s;
+}
+.caps{
+    position: relative;
+    top:40px;
+    left:120px;
+  
+}
+.caps:hover{
+    color: #CD0404;
+}
+.capst{
+    position: relative;
+    top:20px;
+    left:150px;
+  
+}
+.capst:hover{
+    color: #CD0404;
+}
+.capsd{
+    position: relative;
+    top:50px;
+    left:150px;
+  
+}
+.capsd:hover{
+    color: #CD0404;
+}
+.capse{
+    position: relative;
+    top:20px;
+    left:180px;
+  
+}
+.capse:hover{
+    color: #CD0404;
+}
+.capsf{
+    position: relative;
+    top:30px;
+    left:180px;
+  
+}
+.capsf:hover{
+    color: #CD0404;
+}
+.cu:hover{
+    transform: translateY(-5px);
+}
+td{
+    padding:0px 300px 20px 20px;
+}
