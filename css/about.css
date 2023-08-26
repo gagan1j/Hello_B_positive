@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,700;1,300&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    text-transform: capi;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.head {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: -100px;
+}
+
+.mvv-container {
+    max-width: 80%;
+    margin: 50px auto;
+    margin-top: -150px;
+}
+
+.mvv-block {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.mvv-block .image {
+    flex: 0 0 400px;
+    overflow: hidden;
+}
+
+.mvv-block .image img {
+    width: 300px;
+    height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    transform: scale(1);
+}
+
+.mvv-block .image:hover img {
+    transform: scale(1.05);
+}
+
+.mvv-block .content {
+    flex: 1;
+    padding: 20px;
+}
+
+@media screen and (min-width: 1024px) {
+    .mvv-container .mvv-block:nth-child(odd) .image {
+        order: 1;
+    }
+    .mvv-container .mvv-block:nth-child(even) .image {
+        order: 2;
+    }
+    .mvv-container .mvv-block:nth-child(odd) .content {
+        order: 2;
+    }
+    .mvv-container .mvv-block:nth-child(even) .content {
+        order: 1;
+    }
+}
+
+.container {
+    position: relative;
+    perspective: 1000px;
+}
+
+.container .slide-container .slide {
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 5px 10px #3337;
+    width: 650px;
+    height: 300px;
+    padding: 20px;
+    margin: 10px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: slide .4s linear;
+}
+
+@keyframes slide {
+    0% {
+        transform: rotateX(180deg);
+    }
+}
+
+.middle {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 70px;
+}
+
+.container.slide-container .slide>* {
+    animation: slideContent .2s linear .4s backwards;
+}
+
+@keyframes slideContent {
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+}
+
+.container .slide-container .slide .icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 90px;
+    color: #3498db;
+}
+
+.container .slide-container .slide .user {
+    display: flex;
+    align-items: center;
+}
+
+.container .slide-container .slide img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.container .slide-container .slide .user .user-info h3 {
+    color: #333;
+    font-size: 20px;
+}
+
+.container .slide-container .slide .user .user-info .stars i {
+    color: #3498;
+    font-size: 15px;
+}
+
+.container .slide-container .slide .text {
+    color: #333;
+    font-size: 14px;
+    padding-top: 15px;
+    font-style: italic;
+}
+
+.container .slide-container.active {
+    display: block;
+}
+
+.container .slide-container {
+    display: none;
+}
+
+.container #next,
+.container #pre {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px #3337;
+}
+
+.container #next {
+    right: -70px;
+}
+
+.container #pre {
+    left: -70px;
+}
+
+.container #next:hover,
+.container #pre:hover {
+    background: #333;
+    color: #fff;
+}
+
+.container .slide-container .slide .user .user-info .stars .filled {
+    color: #3498db;
+    /* Color for filled stars */
+}
+
+.lead {
+    text-align: center;
+    margin-bottom: -100px;
+    margin-top: 100px;
+}
+
+.con {
+    margin-bottom: 50px;
+}
