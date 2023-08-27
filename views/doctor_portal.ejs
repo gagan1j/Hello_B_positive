@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doctor Portal</title>
-    <link rel="stylesheet" href="css/doctor_portal.css" />
+    <link rel="stylesheet" href="/css/doctor_portal.css" />
   </head>
   <body>
     <div class="container">
@@ -13,7 +13,7 @@
         <h2>Login</h2>
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
+          <input type="text" id="username" name="name" required />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -27,15 +27,20 @@
           Don't have an account? Sign Up
         </div>
       </form>
-      <form id="signup-form" style="display: none;">
+      <form
+        id="signup-form"
+        style="display: none;"
+        action="/doctor/sign-up"
+        method="POST"
+      >
         <h2>Sign Up/Register</h2>
         <div class="form-group">
           <label for="doctor-name">Name</label>
-          <input type="text" id="doctor-name" name="doctor-name" required />
+          <input type="text" id="doctor-name" name="doctor_name" required />
         </div>
         <div class="form-group">
           <label for="doctor-id">ID</label>
-          <input type="text" id="doctor-id" name="doctor-id" required />
+          <input type="text" id="doctor-id" name="doctor_id" required />
         </div>
         <div class="form-group">
           <label for="hospital">Hospital</label>
@@ -68,27 +73,32 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
+          <input
+            type="password"
+            id="password_signup"
+            name="password"
+            required
+          />
         </div>
         <div class="form-group">
           <label for="confirm-password">Confirm Password</label>
           <input
             type="password"
             id="confirm-password"
-            name="confirm-password"
+            name="confirm_password"
             required
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" id="signup-button">Sign Up</button>
         <div class="toggle-form" id="toggle-login">
           Already have an account? Login
         </div>
       </form>
-      <form id="forgot-password-form" style="display: none;">
+      <form id="forgot-password-form" style="display: none;" >
         <h2>Forgot Password</h2>
         <div class="form-group">
           <label for="email-forgot">Email</label>
-          <input type="email" id="email-forgot" name="email-forgot" required />
+          <input type="email" id="email-forgot" name="email" required />
         </div>
         <button type="submit">Reset Password</button>
         <div class="toggle-form" id="toggle-login-forgot">
@@ -131,18 +141,64 @@
       forgotPasswordForm.addEventListener('submit', (event) => {
         event.preventDefault()
       })
+      signupForm.addEventListener('submit', async (event) => {
+        event.preventDefault()
 
-      document
-        .getElementById('signup-form')
-        .addEventListener('submit', (event) => {
-          if (
-            domainSelect.value === 'Other' &&
-            otherDomainTextbox.value.trim() === ''
-          ) {
-            event.preventDefault()
-            alert('Please enter the other specialist.')
+        const form = event.target
+        const formData = new FormData(form)
+
+        try {
+          const response = await fetch('/doctor/sign-up', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(formData), 
+          })
+
+          if (response.ok) {
+            const data = await response.json()
+            if (data.redirectTo) {
+              window.location.href = data.redirectTo
+            }
+          } else {
+            console.error('Error:', response.statusText)
           }
-        })
+        } catch (error) {
+          console.error('Error:', error)
+        }
+      })
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+      
+        const form = event.target;
+        const formData = new FormData(form);
+      
+        try {
+          const response = await fetch('/doctor/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(formData), // Convert FormData to URL-encoded format
+          });
+      
+          if (response.ok) {
+            const data = await response.json();
+            if (data.redirectTo) {
+              window.location.href = data.redirectTo;
+            }
+          } else {
+            console.error('Error:', response.statusText);
+            // Handle error, such as displaying an error message to the user
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // Handle error, such as displaying an error message to the user
+        }
+      });
+
     </script>
   </body>
 </html>

@@ -117,6 +117,23 @@ input[type='email']:focus,
 input[type='tel']:focus {
   border-color: #2980b9;
 }
+
+.password-toggle {
+  position: relative;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-toggle input[type='password'] {
+  padding-right: 32px;
+}
+
 button {
   background-color: #3498db;
   color: white;

@@ -1,122 +1,73 @@
-.logot{
-    font-family: 'Righteous', cursive;
-    font-size: 48px;
+.logot {
+  font-family: 'Righteous', cursive;
+  font-size: 48px;
 }
-.im{
- height:600px;
+
+/* Other styles... */
+
+/* Center content in feature boxes */
+.fbox {
+  text-align: center;
+  padding: 20px;
 }
-.heading{
-    text-align: center;
-    margin-top: 6px;
-    margin-bottom: 0;
-    font-family: 'Lumanosimo', cursive;
+
+/* Center content in disease cards */
+.cu {
+  height: 200px;
+  border: none;
+  transition: transform 0.3s;
 }
-.intr {
-    text-align: center;
-    color: #279EFF;
-    font-size: larger;
-    margin-bottom: 0ex;
+
+.caps,
+.capst,
+.capsd,
+.capse,
+.capsf {
+  position: relative;
+  text-align: center;
+}
+
+/* Center text in major diseases section */
+.heading {
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 1rem;
+  font-family: 'Lumanosimo', cursive;
+}
+
+/* Center introduction section */
+.intro {
+  text-align: center;
+  color: #279eff;
+  font-size: larger;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .int2 {
-    text-align: center;
-    font-size: larger;
-    margin-top: 0px;
-    color: #000;
+  text-align: center;
+  font-size: larger;
+  color: #000;
+  margin-top: 0;
 }
-#features{
-    padding-top:7%;
-    padding-bottom:7%;
-    padding-right: 15%;
-    padding-left: 15%;
-    position: relative;
-    left:80px;
-}
-#featu{
-    padding-top:7%;
-    padding-bottom:7%;
-    padding-right: 15%;
-    
-    
-}
-.row{
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin-left: 120px;
-}
-.fa-4x{
-    margin-bottom: 1rem;
-}
-.headn {
-    color: #CD0404;
-}
-.fbox {
-    margin-top: 2px;
-    text-align: center;
-}
-.ico {
-    color:#0C356A;
-}
-.brd{
-    background-color: aquamarine;
-}
-.cu{
-    height: 200px;
-    position:relative;
-    left:100px;
-    top:40px;
-    border: none;
-    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
 
-    transition: transform 0.3s;
+/* Adjust spacing and alignment for disease cards */
+.row {
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.caps{
-    position: relative;
-    top:40px;
-    left:120px;
-  
+.col-md-4 {
+  margin-bottom: 20px;
 }
-.caps:hover{
-    color: #CD0404;
+
+/* Adjust spacing for feature boxes */
+#feature {
+  padding-top: 7%;
+  padding-bottom: 7%;
 }
-.capst{
-    position: relative;
-    top:20px;
-    left:150px;
-  
-}
-.capst:hover{
-    color: #CD0404;
-}
-.capsd{
-    position: relative;
-    top:50px;
-    left:150px;
-  
-}
-.capsd:hover{
-    color: #CD0404;
-}
-.capse{
-    position: relative;
-    top:20px;
-    left:180px;
-  
-}
-.capse:hover{
-    color: #CD0404;
-}
-.capsf{
-    position: relative;
-    top:30px;
-    left:180px;
-  
-}
-.capsf:hover{
-    color: #CD0404;
-}
-.cu:hover{
-    transform: translateY(-5px);
-}
-td{
-    padding:0px 300px 20px 20px;
+
+/* Adjust spacing for major diseases section */
+#diseases {
+  padding-top: 7%;
+  padding-bottom: 7%;
 }
