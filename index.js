@@ -217,10 +217,8 @@ app.post('/doctor/login', (req, res) => {
       if (results.length > 0) {
         const doctorName = results[0].name
 
-        // Redirect to the doctor's profile page
         res.json({ redirectTo: `/doctor/${encodeURIComponent(doctorName)}` })
       } else {
-        // Invalid credentials
         res.status(401).send('Invalid credentials')
       }
     }
@@ -239,15 +237,13 @@ app.get('/doctor/:doctor_name', (req, res) => {
       console.error('Error fetching doctor details:', err)
       res.status(500).send('Error fetching doctor details')
     } else {
-      const doctorDetails = results[0] // Assuming the doctor's name is unique
+      const doctorDetails = results[0] 
       if (doctorDetails) {
-        // Extract details from doctorDetails
         const specialist = doctorDetails.specialist
         const hospital = doctorDetails.hospital
-        const location = doctorDetails.hospital_address // Use hospital_address here
+        const location = doctorDetails.hospital_address
         const contactEmail = doctorDetails.email
 
-        // Fetch research items and degree items from the database if needed
         const researchItems = [
           'Advances in Heart Disease Treatment - Journal of Cardiology, 2022',
           'Innovations in Cardiovascular Surgery - Journal of Medical Science, 2021',
@@ -258,7 +254,6 @@ app.get('/doctor/:doctor_name', (req, res) => {
           'Board Certified Cardiologist - American Board of Cardiology, 2012',
         ]
 
-        // Render the template with the data
         res.render('doctor_profile', {
           doctorName,
           specialist,
@@ -276,21 +271,18 @@ app.get('/doctor/:doctor_name', (req, res) => {
 app.get('/doctor/:doctor_name/profile', (req, res) => {
   const doctorName = req.params.doctor_name
 
-  // Redirect to the profile page with the correct doctor name
   res.redirect(`/doctor/${encodeURIComponent(doctorName)}`)
 })
 
 app.get('/doctor/:doctor_name/notifications', (req, res) => {
   const doctorName = req.params.doctor_name
 
-  // Assuming you have notifications data here
   const notifications = [
     { title: 'New Message', content: 'You have a new message from Patient A.' },
     {
       title: 'Appointment Reminder',
       content: 'Upcoming appointment at 2:00 PM.',
     },
-    // ... more notifications ...
   ]
 
   res.render('doctor_notifications', { doctorName, notifications })
