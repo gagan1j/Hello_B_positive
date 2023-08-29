@@ -42,8 +42,11 @@ connection.connect((err) => {
       specialist VARCHAR(255),
       experience VARCHAR(255),
       phone VARCHAR(20),
-      email VARCHAR(255),
-      password VARCHAR(255)
+      email VARCHAR(255) UNIQUE,
+      password VARCHAR(255) 
+    
+      
+
     )
   `
 
@@ -54,8 +57,29 @@ connection.connect((err) => {
       console.log('Doctors table created or already exists')
     }
   })
-})
 
+const patientTableQuery = `
+    CREATE TABLE IF NOT EXISTS patients (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255),
+      phone VARCHAR(20),
+      age INT,
+      email VARCHAR(255) UNIQUE,
+      address VARCHAR(400),
+      password VARCHAR(255),
+      Subscription INT
+    )
+    `
+    
+connection.query(patientTableQuery, (err) => {
+      if (err) {
+        console.error('Error creating doctors table:', err)
+      } else {
+        console.log('Patients table created or already exists')
+      }
+    })
+  
+  })
 app.get('/', function (req, res) {
   res.render('home')
 })
@@ -155,6 +179,7 @@ app.get('/about_us', (req, res) => {
 })
 
 app.get('/patient', function (req, res) {
+  
   res.render('patient_profile')
 })
 
@@ -163,7 +188,7 @@ app.get('/doctor', (req, res) => {
 })
 
 app.post('/doctor/sign-up', async (req, res) => {
-  console.log('Received Form Data:', req.body)
+  console.log('Received doctor Form Data:', req.body)
   try {
     const {
       doctor_name,
@@ -191,6 +216,7 @@ app.post('/doctor/sign-up', async (req, res) => {
       experience,
       phone,
       email,
+      
       password,
     ])
 
@@ -286,6 +312,45 @@ app.get('/doctor/:doctor_name/notifications', (req, res) => {
   ]
 
   res.render('doctor_notifications', { doctorName, notifications })
+})
+app.post("/psignup",async (req,res)=>{
+  console.log('Received  Patient Form Data:', req.body)
+  try {
+    const {
+      p_name,
+      p_phone,
+      p_age,
+      p_email,
+      p_address,
+      p_password,
+      p_cpassword,
+    } = req.body
+       if(p_cpassword!=p_password){
+        alert("Password and confirm password not matched please try to siign up once again");
+        res.redirect("/");
+       }else{
+    const patientQuery = `
+      INSERT INTO patients (name,phone,age,email,address,password)
+      VALUES (?, ?, ?, ?, ?,?)
+    `
+
+    await connection.query(patientQuery, [
+      p_name,
+      p_phone,
+      p_age,
+      p_email,
+      p_address,
+      p_password,
+      
+    ])
+
+    console.log('User signed up successfully')
+    res.redirect("/patient_profile");
+  }
+  } catch (error) {
+    console.error('Error signing up:', error)
+    res.status(500).send('Error signing up')
+  }
 })
 
 const PORT = process.env.PORT || 4000

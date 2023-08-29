@@ -25,8 +25,8 @@
     crossorigin="anonymous"
   ></script>
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
+<body style="padding-top: 70px;">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <a class="navbar-brand" href="#">
       <img src="/assets/logo.png" alt="logo" height="50" width="auto" />
     </a>
@@ -163,13 +163,14 @@
               role="tabpanel"
               aria-labelledby="signup-tab"
             >
-              <form id="signupForm">
+              <form id="signupForm" action="/psignup" method="post" >
                 <div class="form-group">
                   <label for="signupUsername">Username</label>
                   <input
                     type="text"
                     class="form-control"
                     id="signupUsername"
+                    name="p_name"
                     placeholder="Enter username"
                   />
                 </div>
@@ -179,6 +180,7 @@
                     type="text"
                     class="form-control"
                     id="signupPhno"
+                    name="p_phone"
                     placeholder="Enter phone no."
                   />
                 </div>
@@ -188,6 +190,7 @@
                     type="text"
                     class="form-control"
                     id="signupAge"
+                    name="p_age"
                     placeholder="Enter age"
                   />
                 </div>
@@ -197,7 +200,18 @@
                     type="email"
                     class="form-control"
                     id="signupEmail"
+                    name="p_email"
                     placeholder="Enter email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="signupaddress">Address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="signupaddress"
+                    name="p_address"
+                    placeholder="Enter Address"
                   />
                 </div>
                 <div class="form-group">
@@ -206,6 +220,7 @@
                     type="password"
                     class="form-control"
                     id="signupPassword"
+                    name="p_password"
                     placeholder="Enter password"
                   />
                 </div>
@@ -215,6 +230,7 @@
                     type="password"
                     class="form-control"
                     id="signupConfirmPassword"
+                    name="p_cpassword"
                     placeholder="Enter confirm password"
                   />
                 </div>

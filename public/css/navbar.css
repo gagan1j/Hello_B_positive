@@ -1,7 +1,10 @@
 .navbar {
   background-color: #007bff;
+  
 }
-
+nav{
+  position: fixed;
+}
 .navbar-brand {
   color: white;
   font-weight: bold;
@@ -57,7 +60,7 @@
 .search-icon {
   position: absolute;
   right: 15rem;
-  top: 30%;
+  top: 10px;
   color: #f4f4f4;
   background-color: #02d132;
   border-radius: 50%;
