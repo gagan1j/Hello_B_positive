@@ -73,22 +73,65 @@ const patientTableQuery = `
     
 connection.query(patientTableQuery, (err) => {
       if (err) {
-        console.error('Error creating doctors table:', err)
+        console.error('Error creating patient table:', err)
       } else {
         console.log('Patients table created or already exists')
       }
     })
-  
+    const questiontablequery=`
+    CREATE TABLE IF NOT EXISTS questions(
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      que varchar(1000) UNIQUE,
+      answer varchar(1000) DEFAULT 'we will answer soon'
+    )
+    `
+    connection.query(questiontablequery, (err) => {
+      if (err) {
+        console.error('Error creating questions table:', err)
+      } else {
+        console.log('Questions table created or already exists')
+      }
+    })
+    const hospitaltablequery=`
+    CREATE TABLE IF NOT EXISTS hospitals(
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      hospname varchar(100),
+      hospdesc varchar(1000),
+      hosploc varchar(1000),
+      hospimg varchar(1000) DEFAULT 'assets/logo.png'
+       )
+    `
+    connection.query(hospitaltablequery, (err) => {
+      if (err) {
+        console.error('Error creating hospitals table:', err)
+      } else {
+        console.log('hospitalss table created or already exists')
+      }
+    })
   })
+ 
+
+
 app.get('/', function (req, res) {
   res.render('home')
 })
 
 app.get('/hospitals', function (req, res) {
-  res.render('hospitals')
+  const hospQuery='select * from hospitals'
+  connection.query(hospQuery, (error, hospita, fields) => {
+    if (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).send('Error fetching data');
+    } else {
+      
+      res.render('hospitals', { hospita});
+    }
+  });
+  
 })
 
 app.get('/FAQ', (req, res) => {
+  
   const faqs = [
     {
       question: 'What is an online doctor-patient consultation?',
@@ -170,10 +213,38 @@ app.get('/FAQ', (req, res) => {
         'If you encounter technical difficulties during the consultation, please contact our technical support team for assistance.',
     },
   ]
-
-  res.render('faq', { faqs })
+  const selectQuery='select * from questions'
+  connection.query(selectQuery, (error, faq2, fields) => {
+    if (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).send('Error fetching data');
+    } else {
+      // Render the 'faq' view and pass both sets of data
+      res.render('faq', { faqs, faq2 });
+    }
+  });
+  
+  
 })
+app.post('/faq',(req,res)=>{
+  console.log('Received  question Form Data:', req.body)
+  try {
+    const qu=req.body.userQuestion;
+      
+    const questionQuery = `
+      INSERT INTO questions (que)
+      VALUES (?)
+    `
 
+     connection.query(questionQuery, qu);
+
+   res.redirect("/faq");
+  }
+  catch (error) {
+    console.error('Error signing up:', error)
+    res.status(500).send('Error signing up')
+  }
+})
 app.get('/about_us', (req, res) => {
   res.render('about_us')
 })

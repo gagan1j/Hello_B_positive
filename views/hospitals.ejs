@@ -15,19 +15,20 @@
 <body>
     <%- include("navbar")-%>
     <table>
-        <tr>
+        <% hospita.forEach((hosp) => { %>
+                   <tr>
 <div class="container mt-5">
     <div class="container mt-5">
         <div class="card mb-4">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="/assets/3.png" class="card-img" alt="Hospital Image 1">
+                    <img src="<%= hosp.hospimg %>" class="card-img" alt="Hospital Image 1">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">Hospital A</h5>
-                        <p class="card-text">A prestigious hospital dedicated to providing quality healthcare services.</p>
-                        <p class="card-text"><small class="text-muted">Location: City X</small></p>
+                        <h5 class="card-title"><%= hosp.hospname %></h5>
+                        <p class="card-text"><%= hosp.hospdesc %></p>
+                        <p class="card-text"><small class="text-muted"><%= hosp.hosploc %></small></p>
                         <a href="#" class="btn btn-primary"><i class="fa fa-chevron-right"></i> Visit Hospital</a>
                     </div>
                 </div>
@@ -35,88 +36,7 @@
         </div>
     </div>
         </tr>
-        <tr>
-<div class="container mt-5">
-    <div class="container mt-5">
-        <div class="card mb-4">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="/assets/3.png" class="card-img" alt="Hospital Image 1">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Hospital B</h5>
-                        <p class="card-text">A prestigious hospital dedicated to providing quality healthcare services.</p>
-                        <p class="card-text"><small class="text-muted">Location: City X</small></p>
-                        <a href="#" class="btn btn-primary"><i class="fa fa-chevron-right"></i> Visit Hospital</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</tr>
-<tr>
-<div class="container mt-5">
-    <div class="container mt-5">
-        <div class="card mb-4">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="/assets/3.png" class="card-img" alt="Hospital Image 1">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Hospital C</h5>
-                        <p class="card-text">A prestigious hospital dedicated to providing quality healthcare services.</p>
-                        <p class="card-text"><small class="text-muted">Location: City X</small></p>
-                        <a href="#" class="btn btn-primary"><i class="fa fa-chevron-right"></i> Visit Hospital</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</tr>
-<tr>
-<div class="container mt-5">
-    <div class="container mt-5">
-        <div class="card mb-4">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="/assets/3.png" class="card-img" alt="Hospital Image 1">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Hospital D</h5>
-                        <p class="card-text">A prestigious hospital dedicated to providing quality healthcare services.</p>
-                        <p class="card-text"><small class="text-muted">Location: City X</small></p>
-                        <a href="#" class="btn btn-primary"><i class="fa fa-chevron-right"></i> Visit Hospital</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</tr>
-<tr>
-<div class="container mt-5">
-    <div class="container mt-5">
-        <div class="card mb-4">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="/assets/3.png" class="card-img" alt="Hospital Image 1">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Hospital E</h5>
-                        <p class="card-text">A prestigious hospital dedicated to providing quality healthcare services.</p>
-                        <p class="card-text"><small class="text-muted">Location: City X</small></p>
-                        <a href="#" class="btn btn-primary"><i class="fa fa-chevron-right"></i> Visit Hospital</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</tr>
-    
-</div>
+        <% }); %>
 </table>
 <%- include("footer")-%>
 </body>

@@ -28,6 +28,22 @@
                 </div>
             </div>
             <% }); %>
+            <% faq2.forEach((faq, i) => { %>
+            <div class="card">
+                <div class="card-header" id="faqHeading<%= i+16 %>">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<%= i+16 %>" aria-expanded="true" aria-controls="collapse<%= i+16 %>">
+                            <%= faq.que %>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse<%= i+16 %>" class="collapse" aria-labelledby="faqHeading<%= i+16 %>" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        <%= faq.answer %>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
         </div>
         <div class="text-center mt-4">
             <p>Do you have more questions?</p>
