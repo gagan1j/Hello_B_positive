@@ -83,7 +83,7 @@ body {
   width: 650px;
   height: 300px;
   padding: 20px;
-  margin: 10px;
+  margin: 202px;
   position: relative;
   transform-style: preserve-3d;
   animation: slide 0.4s linear;
@@ -178,11 +178,11 @@ body {
 }
 
 .container #next {
-  right: -70px;
+  right: 20px;
 }
 
 .container #pre {
-  left: -70px;
+  left: -23px;
 }
 
 .container #next:hover,

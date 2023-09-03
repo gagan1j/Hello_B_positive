@@ -9,8 +9,8 @@ const _ = require('lodash')
 const alert = require('alert')
 
 const app = express()
-let signed=false;
-let emai=" ";
+let signed = false
+let emai = ' '
 dotenv.config()
 
 app.set('view engine', 'ejs')
@@ -60,7 +60,7 @@ connection.connect((err) => {
     }
   })
 
-const patientTableQuery = `
+  const patientTableQuery = `
     CREATE TABLE IF NOT EXISTS patients (
       id INT AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255),
@@ -72,29 +72,29 @@ const patientTableQuery = `
       Subscription INT
     )
     `
-    
-connection.query(patientTableQuery, (err) => {
-      if (err) {
-        console.error('Error creating patient table:', err)
-      } else {
-        console.log('Patients table created or already exists')
-      }
-    })
-    const questiontablequery=`
+
+  connection.query(patientTableQuery, (err) => {
+    if (err) {
+      console.error('Error creating patient table:', err)
+    } else {
+      console.log('Patients table created or already exists')
+    }
+  })
+  const questiontablequery = `
     CREATE TABLE IF NOT EXISTS questions(
       id INT AUTO_INCREMENT PRIMARY KEY,
       que varchar(1000) UNIQUE,
       answer varchar(1000) DEFAULT 'we will answer soon'
     )
     `
-    connection.query(questiontablequery, (err) => {
-      if (err) {
-        console.error('Error creating questions table:', err)
-      } else {
-        console.log('Questions table created or already exists')
-      }
-    })
-    const hospitaltablequery=`
+  connection.query(questiontablequery, (err) => {
+    if (err) {
+      console.error('Error creating questions table:', err)
+    } else {
+      console.log('Questions table created or already exists')
+    }
+  })
+  const hospitaltablequery = `
     CREATE TABLE IF NOT EXISTS hospitals(
       id INT AUTO_INCREMENT PRIMARY KEY,
       hospname varchar(100),
@@ -103,100 +103,97 @@ connection.query(patientTableQuery, (err) => {
       hospimg varchar(1000) DEFAULT 'assets/logo.png'
        )
     `
-    connection.query(hospitaltablequery, (err) => {
-      if (err) {
-        console.error('Error creating hospitals table:', err)
-      } else {
-        console.log('hospitalss table created or already exists')
-      }
-    })
+  connection.query(hospitaltablequery, (err) => {
+    if (err) {
+      console.error('Error creating hospitals table:', err)
+    } else {
+      console.log('hospitals table created or already exists')
+    }
   })
- 
-
+})
 
 app.get('/', function (req, res) {
-  let name="guest";
-  if(signed===true){
+  let name = 'guest'
+  if (signed === true) {
     const loginQuery = `
     SELECT * FROM patients WHERE email = ? 
   `
-  
-  connection.query(loginQuery, [emai], (err, results) => {
-const loginQuery = `
+
+    connection.query(loginQuery, [emai], (err, results) => {
+      const loginQuery = `
   SELECT * FROM patients WHERE email = ? 
-`;
+`
 
-   if (err) {
-     console.error('Error fetching user details:', err)
-     res.status(700).send('No account is corrected with given mail id or wrong password');
-   } else {
-    
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
+      } else {
+        if (results.length > 0) {
+          console.log('Email:', emai)
 
-     if (results.length > 0) {
-    console.log('Email:', emai);
-      
-       name=results[0].name;
-       
-       console.log(name);
-     }
-    res.render('home',{signed,nm: name})
-  }
- })
-  }
-  else{
-    res.render('home',{signed,nm:name})
+          name = results[0].name
 
+          console.log(name)
+        }
+        res.render('home', { signed, nm: name })
+      }
+    })
+  } else {
+    res.render('home', { signed, nm: name })
   }
 })
 
 app.get('/hospitals', function (req, res) {
-  let name="guest";
-  if(signed){
+  let name = 'guest'
+  if (signed) {
     const loginQuery = `
     SELECT * FROM patients WHERE email = ? 
   `
-  connection.query(loginQuery, [emai], (err, results) => {
-   if (err) {
-     console.error('Error fetching user details:', err)
-     res.status(700).send('No account is corrected with given mail id or wrong password');
-   } else {
-     if (results.length > 0) {
-       name=results[0].name;
-      } 
-      
-     }
- })
+    connection.query(loginQuery, [emai], (err, results) => {
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
+      } else {
+        if (results.length > 0) {
+          name = results[0].name
+        }
+      }
+    })
   }
-  const hospQuery='select * from hospitals'
+  const hospQuery = 'select * from hospitals'
   connection.query(hospQuery, (error, hospita, fields) => {
     if (error) {
-      console.error('Error fetching data:', error);
-      res.status(500).send('Error fetching data');
+      console.error('Error fetching data:', error)
+      res.status(500).send('Error fetching data')
     } else {
-      
-      res.render('hospitals', { hospita,signed,nm:name});
+      res.render('hospitals', { hospita, signed, nm: name })
     }
-  });
-  
+  })
 })
 
 app.get('/FAQ', (req, res) => {
-  let name="guest";
-  if(signed){
+  let name = 'guest'
+  if (signed) {
     const loginQuery = `
     SELECT * FROM patients WHERE email = ? 
   `
-  connection.query(loginQuery, [emai], (err, results) => {
-   if (err) {
-     console.error('Error fetching user details:', err)
-     res.status(700).send('No account is corrected with given mail id or wrong password');
-   } else {
-     if (results.length > 0) {
-       name=results[0].name;
-       console.log(name);
-      } 
-     }
- })
+    connection.query(loginQuery, [emai], (err, results) => {
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
+      } else {
+        if (results.length > 0) {
+          name = results[0].name
+          console.log(name)
+        }
+      }
+    })
   }
   const faqs = [
     {
@@ -279,83 +276,80 @@ app.get('/FAQ', (req, res) => {
         'If you encounter technical difficulties during the consultation, please contact our technical support team for assistance.',
     },
   ]
-  const selectQuery='select * from questions'
+  const selectQuery = 'select * from questions'
   connection.query(selectQuery, (error, faq2, fields) => {
     if (error) {
-      console.error('Error fetching data:', error);
-      res.status(500).send('Error fetching data');
+      console.error('Error fetching data:', error)
+      res.status(500).send('Error fetching data')
     } else {
       // Render the 'faq' view and pass both sets of data
-      res.render('faq', { faqs, faq2,signed ,nm:name});
+      res.render('faq', { faqs, faq2, signed, nm: name })
     }
-  });
-  
-  
+  })
 })
-app.post('/faq',(req,res)=>{
+app.post('/faq', (req, res) => {
   console.log('Received  question Form Data:', req.body)
   try {
-    const qu=req.body.userQuestion;
-      
+    const qu = req.body.userQuestion
+
     const questionQuery = `
       INSERT INTO questions (que)
       VALUES (?)
     `
 
-     connection.query(questionQuery, qu);
+    connection.query(questionQuery, qu)
 
-   res.redirect("/faq");
-  }
-  catch (error) {
+    res.redirect('/faq')
+  } catch (error) {
     console.error('Error signing up:', error)
     res.status(500).send('Error signing up')
   }
 })
 app.get('/about_us', (req, res) => {
-  let name="guest";
-  if(signed){
+  let name = 'guest'
+  if (signed) {
     const loginQuery = `
     SELECT * FROM patients WHERE email = ? 
   `
-  connection.query(loginQuery, [emai], (err, results) => {
-   if (err) {
-     console.error('Error fetching user details:', err)
-     res.status(700).send('No account is corrected with given mail id or wrong password');
-   } else {
-     if (results.length > 0) {
-       name=results[0].name;
-      } 
-  res.render('about_us',{signed,nm:name})
-
-     }
- })
-  }else{
-    res.render('about_us',{signed,nm:name})
-
+    connection.query(loginQuery, [emai], (err, results) => {
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
+      } else {
+        if (results.length > 0) {
+          name = results[0].name
+        }
+        res.render('about_us', { signed, nm: name })
+      }
+    })
+  } else {
+    res.render('about_us', { signed, nm: name })
   }
 })
 
 app.get('/patient', function (req, res) {
-  
-  let name="guest";
-  if(signed){
+  let name = 'guest'
+  if (signed) {
     const loginQuery = `
     SELECT * FROM patients WHERE email = ? 
   `
-  connection.query(loginQuery, [emai], (err, results) => {
-   if (err) {
-     console.error('Error fetching user details:', err)
-     res.status(700).send('No account is corrected with given mail id or wrong password');
-   } else {
-     if (results.length > 0) {
-       name=results[0].name;
-      } 
-      res.render('patient_profile',{signed,nm:name,pmail:emai});
-     }
- })
-  }
-  else{
-    res.render('patient_profile',{signed,nm:name,pmail:emai});
+    connection.query(loginQuery, [emai], (err, results) => {
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
+      } else {
+        if (results.length > 0) {
+          name = results[0].name
+        }
+        res.render('patient_profile', { signed, nm: name, pmail: emai })
+      }
+    })
+  } else {
+    res.render('patient_profile', { signed, nm: name, pmail: emai })
   }
 })
 
@@ -392,7 +386,7 @@ app.post('/doctor/sign-up', async (req, res) => {
       experience,
       phone,
       email,
-      
+
       password,
     ])
 
@@ -439,7 +433,7 @@ app.get('/doctor/:doctor_name', (req, res) => {
       console.error('Error fetching doctor details:', err)
       res.status(500).send('Error fetching doctor details')
     } else {
-      const doctorDetails = results[0] 
+      const doctorDetails = results[0]
       if (doctorDetails) {
         const specialist = doctorDetails.specialist
         const hospital = doctorDetails.hospital
@@ -489,7 +483,7 @@ app.get('/doctor/:doctor_name/notifications', (req, res) => {
 
   res.render('doctor_notifications', { doctorName, notifications })
 })
-app.post("/psignup",async (req,res)=>{
+app.post('/psignup', async (req, res) => {
   console.log('Received  Patient Form Data:', req.body)
   try {
     const {
@@ -501,65 +495,65 @@ app.post("/psignup",async (req,res)=>{
       p_password,
       p_cpassword,
     } = req.body
-       if(p_cpassword!=p_password){
-        alert("Password and confirm password not matched please try to siign up once again");
-        res.redirect("/");
-       }else{
-    const patientQuery = `
+    if (p_cpassword != p_password) {
+      alert(
+        'Password and confirm password not matched please try to siign up once again',
+      )
+      res.redirect('/')
+    } else {
+      const patientQuery = `
       INSERT INTO patients (name,phone,age,email,address,password)
       VALUES (?, ?, ?, ?, ?,?)
     `
-    signed=true;
-    
-    await connection.query(patientQuery, [
-      p_name,
-      p_phone,
-      p_age,
-      p_email,
-      p_address,
-      p_password,
-      
-    ])
-   emai=p_email;
-    console.log('User signed up successfully')
-    res.redirect("/patient");
-  }
+      signed = true
+
+      await connection.query(patientQuery, [
+        p_name,
+        p_phone,
+        p_age,
+        p_email,
+        p_address,
+        p_password,
+      ])
+      emai = p_email
+      console.log('User signed up successfully')
+      res.redirect('/patient')
+    }
   } catch (error) {
     console.error('Error signing up:', error)
     res.status(500).send('Error signing up')
   }
 })
-app.post("/logout",(req,res)=>{
-  signed=false;
-  res.redirect("/");
+app.post('/logout', (req, res) => {
+  signed = false
+  res.redirect('/')
 })
-app.post("/plogin",(req,res)=>{
+app.post('/plogin', (req, res) => {
   try {
-    const {
-      mailid,
-      password
-     }=req.body;
-     const loginQuery = `
+    const { mailid, password } = req.body
+    const loginQuery = `
      SELECT * FROM patients WHERE email = ? AND password = ?
    `
-   connection.query(loginQuery, [mailid, password], (err, results) => {
-    if (err) {
-      console.error('Error fetching user details:', err)
-      res.status(700).send('No account is corrected with given mail id or wrong password');
-    } else {
-      if (results.length > 0) {
-        signed=true;
-        emai=mailid;
-        res.redirect('/');
+    connection.query(loginQuery, [mailid, password], (err, results) => {
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
       } else {
-        res.send('Login failed. Please check your credentials.');
+        if (results.length > 0) {
+          signed = true
+          emai = mailid
+          res.redirect('/')
+        } else {
+          res.send('Login failed. Please check your credentials.')
+        }
       }
-      }
-  })
-    }catch(error){
-      console.error('Error logging in:', error)
+    })
+  } catch (error) {
+    console.error('Error logging in:', error)
     res.status(600).send('Error signing up')
-    }
+  }
 })
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {

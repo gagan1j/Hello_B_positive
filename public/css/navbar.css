@@ -1,8 +1,7 @@
 .navbar {
   background-color: #007bff;
-  
 }
-nav{
+nav {
   position: fixed;
 }
 .navbar-brand {
@@ -112,31 +111,33 @@ nav{
   margin-bottom: 20px;
 }
 
-.wht{
+.wht {
   color: white;
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 16px;
   position: relative;
-  left:80px;
+  left: 80px;
 }
-/* Style for the logout button */
+
+.wht:hover {
+  color: #cfc7c4;
+}
+
 .logout-button {
-  background-color: #ff5733; /* Choose your preferred color */
+  background-color: #ff5733;
   color: white;
   border: none;
-  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  padding: 10px 20px;
   transition: background-color 0.3s ease;
 }
 
-/* Hover effect */
 .logout-button:hover {
-  background-color: #ff371e; /* Change the color on hover */
+  background-color: #ff371e;
 }
 
-/* Icon style */
 .logout-button i {
-  margin-right: 5px; /* Adds space between the icon and text */
+  margin-right: 5px;
 }
