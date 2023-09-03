@@ -9,6 +9,8 @@ const _ = require('lodash')
 const alert = require('alert')
 
 const app = express()
+let signed=false;
+let emai=" ";
 dotenv.config()
 
 app.set('view engine', 'ejs')
@@ -113,10 +115,58 @@ connection.query(patientTableQuery, (err) => {
 
 
 app.get('/', function (req, res) {
-  res.render('home')
+  let name="guest";
+  if(signed===true){
+    const loginQuery = `
+    SELECT * FROM patients WHERE email = ? 
+  `
+  
+  connection.query(loginQuery, [emai], (err, results) => {
+const loginQuery = `
+  SELECT * FROM patients WHERE email = ? 
+`;
+
+   if (err) {
+     console.error('Error fetching user details:', err)
+     res.status(700).send('No account is corrected with given mail id or wrong password');
+   } else {
+    
+
+     if (results.length > 0) {
+    console.log('Email:', emai);
+      
+       name=results[0].name;
+       
+       console.log(name);
+     }
+    res.render('home',{signed,nm: name})
+  }
+ })
+  }
+  else{
+    res.render('home',{signed,nm:name})
+
+  }
 })
 
 app.get('/hospitals', function (req, res) {
+  let name="guest";
+  if(signed){
+    const loginQuery = `
+    SELECT * FROM patients WHERE email = ? 
+  `
+  connection.query(loginQuery, [emai], (err, results) => {
+   if (err) {
+     console.error('Error fetching user details:', err)
+     res.status(700).send('No account is corrected with given mail id or wrong password');
+   } else {
+     if (results.length > 0) {
+       name=results[0].name;
+      } 
+      
+     }
+ })
+  }
   const hospQuery='select * from hospitals'
   connection.query(hospQuery, (error, hospita, fields) => {
     if (error) {
@@ -124,14 +174,30 @@ app.get('/hospitals', function (req, res) {
       res.status(500).send('Error fetching data');
     } else {
       
-      res.render('hospitals', { hospita});
+      res.render('hospitals', { hospita,signed,nm:name});
     }
   });
   
 })
 
 app.get('/FAQ', (req, res) => {
-  
+  let name="guest";
+  if(signed){
+    const loginQuery = `
+    SELECT * FROM patients WHERE email = ? 
+  `
+  connection.query(loginQuery, [emai], (err, results) => {
+   if (err) {
+     console.error('Error fetching user details:', err)
+     res.status(700).send('No account is corrected with given mail id or wrong password');
+   } else {
+     if (results.length > 0) {
+       name=results[0].name;
+       console.log(name);
+      } 
+     }
+ })
+  }
   const faqs = [
     {
       question: 'What is an online doctor-patient consultation?',
@@ -220,7 +286,7 @@ app.get('/FAQ', (req, res) => {
       res.status(500).send('Error fetching data');
     } else {
       // Render the 'faq' view and pass both sets of data
-      res.render('faq', { faqs, faq2 });
+      res.render('faq', { faqs, faq2,signed ,nm:name});
     }
   });
   
@@ -246,12 +312,51 @@ app.post('/faq',(req,res)=>{
   }
 })
 app.get('/about_us', (req, res) => {
-  res.render('about_us')
+  let name="guest";
+  if(signed){
+    const loginQuery = `
+    SELECT * FROM patients WHERE email = ? 
+  `
+  connection.query(loginQuery, [emai], (err, results) => {
+   if (err) {
+     console.error('Error fetching user details:', err)
+     res.status(700).send('No account is corrected with given mail id or wrong password');
+   } else {
+     if (results.length > 0) {
+       name=results[0].name;
+      } 
+  res.render('about_us',{signed,nm:name})
+
+     }
+ })
+  }else{
+    res.render('about_us',{signed,nm:name})
+
+  }
 })
 
 app.get('/patient', function (req, res) {
   
-  res.render('patient_profile')
+  let name="guest";
+  if(signed){
+    const loginQuery = `
+    SELECT * FROM patients WHERE email = ? 
+  `
+  connection.query(loginQuery, [emai], (err, results) => {
+   if (err) {
+     console.error('Error fetching user details:', err)
+     res.status(700).send('No account is corrected with given mail id or wrong password');
+   } else {
+     if (results.length > 0) {
+       name=results[0].name;
+      } 
+      res.render('patient_profile',{signed,nm:name,pmail:emai});
+     }
+ })
+  }
+  else{
+    res.render('patient_profile',{signed,nm:name,pmail:emai});
+  }
 })
 
 app.get('/doctor', (req, res) => {
@@ -404,7 +509,8 @@ app.post("/psignup",async (req,res)=>{
       INSERT INTO patients (name,phone,age,email,address,password)
       VALUES (?, ?, ?, ?, ?,?)
     `
-
+    signed=true;
+    
     await connection.query(patientQuery, [
       p_name,
       p_phone,
@@ -414,16 +520,47 @@ app.post("/psignup",async (req,res)=>{
       p_password,
       
     ])
-
+   emai=p_email;
     console.log('User signed up successfully')
-    res.redirect("/patient_profile");
+    res.redirect("/patient");
   }
   } catch (error) {
     console.error('Error signing up:', error)
     res.status(500).send('Error signing up')
   }
 })
-
+app.post("/logout",(req,res)=>{
+  signed=false;
+  res.redirect("/");
+})
+app.post("/plogin",(req,res)=>{
+  try {
+    const {
+      mailid,
+      password
+     }=req.body;
+     const loginQuery = `
+     SELECT * FROM patients WHERE email = ? AND password = ?
+   `
+   connection.query(loginQuery, [mailid, password], (err, results) => {
+    if (err) {
+      console.error('Error fetching user details:', err)
+      res.status(700).send('No account is corrected with given mail id or wrong password');
+    } else {
+      if (results.length > 0) {
+        signed=true;
+        emai=mailid;
+        res.redirect('/');
+      } else {
+        res.send('Login failed. Please check your credentials.');
+      }
+      }
+  })
+    }catch(error){
+      console.error('Error logging in:', error)
+    res.status(600).send('Error signing up')
+    }
+})
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)

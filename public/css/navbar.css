@@ -111,3 +111,32 @@ nav{
   border: none;
   margin-bottom: 20px;
 }
+
+.wht{
+  color: white;
+  display: inline-block;
+  margin-right: 8px;
+  position: relative;
+  left:80px;
+}
+/* Style for the logout button */
+.logout-button {
+  background-color: #ff5733; /* Choose your preferred color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.logout-button:hover {
+  background-color: #ff371e; /* Change the color on hover */
+}
+
+/* Icon style */
+.logout-button i {
+  margin-right: 5px; /* Adds space between the icon and text */
+}
