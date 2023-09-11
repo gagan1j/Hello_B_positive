@@ -42,15 +42,12 @@ connection.connect((err) => {
       doctor_id VARCHAR(50),
       hospital VARCHAR(255),
       hospital_address VARCHAR(255),
-      specialist VARCHAR(255),
+      specalist VARCHAR(255),
       experience VARCHAR(255),
       phone VARCHAR(20),
       email VARCHAR(255) UNIQUE,
       password VARCHAR(255) 
-    
-      
-
-    )
+        )
   `
 
   connection.query(createTableQuery, (err) => {
@@ -549,6 +546,43 @@ app.post('/logout', (req, res) => {
   signed = false
   res.redirect('/')
 })
+app.get('/disease/:specalist',(req,res)=>{
+  let name = 'guest';
+  const t=decodeURIComponent(req.params.specalist).toLowerCase();
+  const diseaseQuery = `
+     SELECT * FROM doctors WHERE specalist = ?
+   `;
+   if (signed) {
+    const loginQuery = `
+    SELECT * FROM patients WHERE email = ? 
+  `
+    connection.query(loginQuery, [emai], (err, results) => {
+      if (err) {
+        console.error('Error fetching user details:', err)
+        res
+          .status(700)
+          .send('No account is corrected with given mail id or wrong password')
+      } else {
+        if (results.length > 0) {
+          name = results[0].name
+          // console.log(name)
+        }
+      }
+    })
+  }
+   
+  connection.query(diseaseQuery, t,(error, docts, fields) => {
+    if (error) {
+      console.error('Error fetching data:', error)
+      res.status(500).send('Error fetching data')
+    } else {
+      
+      res.render('doctor', { title:t, signed, nm: name,docts })
+    }
+  })
+})
+
+
 app.post('/plogin', (req, res) => {
   try {
     const { mailid, password } = req.body;
