@@ -7,8 +7,9 @@ const dotenv = require('dotenv')
 const nodemailer = require('nodemailer')
 const _ = require('lodash')
 const alert = require('alert')
-
+const bcrypt=require('bcrypt')
 const app = express()
+const saltRounds=10;
 let signed = false
 let emai = ' '
 dotenv.config()
@@ -371,8 +372,9 @@ app.post('/doctor/sign-up', async (req, res) => {
       email,
       password,
     } = req.body
-
-    const insertQuery = `
+    bcrypt.hash(password, saltRounds, async function(err, hash) {
+      // Store hash in your password DB.
+      const insertQuery = `
       INSERT INTO doctors (name, doctor_id, hospital, hospital_address, specialist, experience, phone, email, password)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
@@ -387,11 +389,13 @@ app.post('/doctor/sign-up', async (req, res) => {
       phone,
       email,
 
-      password,
+      hash,
     ])
 
     console.log('User signed up successfully')
     res.json({ redirectTo: `/doctor/${encodeURIComponent(doctor_name)}` })
+  });
+    
   } catch (error) {
     console.error('Error signing up:', error)
     res.status(500).send('Error signing up')
@@ -399,27 +403,39 @@ app.post('/doctor/sign-up', async (req, res) => {
 })
 
 app.post('/doctor/login', (req, res) => {
-  const { name, password } = req.body
+  const { name, password } = req.body;
 
   const getUserQuery = `
-    SELECT name FROM doctors WHERE name = ? AND password = ?
-  `
+    SELECT name, password FROM doctors WHERE name = ?
+  `;
 
-  connection.query(getUserQuery, [name, password], (err, results) => {
+  connection.query(getUserQuery, [name], async (err, results) => {
     if (err) {
-      console.error('Error fetching user details:', err)
-      res.status(500).send('Error fetching user details')
+      console.error('Error fetching user details:', err);
+      res.status(500).send('Error fetching user details');
     } else {
       if (results.length > 0) {
-        const doctorName = results[0].name
+        const storedHashedPassword = results[0].password;
 
-        res.json({ redirectTo: `/doctor/${encodeURIComponent(doctorName)}` })
+        bcrypt.compare(password, storedHashedPassword, function(err, result) {
+          if (err) {
+            console.error('Error comparing passwords:', err);
+            res.status(500).send('Error authenticating');
+          } else {
+            if (result) {
+              const doctorName = results[0].name;
+              res.json({ redirectTo: `/doctor/${encodeURIComponent(doctorName)}` });
+            } else {
+              res.status(401).send('Invalid credentials');
+            }
+          }
+        });
       } else {
-        res.status(401).send('Invalid credentials')
+        res.status(401).send('Invalid credentials');
       }
     }
-  })
-})
+  });
+});
 
 app.get('/doctor/:doctor_name', (req, res) => {
   const doctorName = req.params.doctor_name
@@ -484,7 +500,8 @@ app.get('/doctor/:doctor_name/notifications', (req, res) => {
   res.render('doctor_notifications', { doctorName, notifications })
 })
 app.post('/psignup', async (req, res) => {
-  console.log('Received  Patient Form Data:', req.body)
+ 
+  console.log('Received  Patient Form Data:', )
   try {
     const {
       p_name,
@@ -501,23 +518,27 @@ app.post('/psignup', async (req, res) => {
       )
       res.redirect('/')
     } else {
-      const patientQuery = `
-      INSERT INTO patients (name,phone,age,email,address,password)
-      VALUES (?, ?, ?, ?, ?,?)
-    `
-      signed = true
-
-      await connection.query(patientQuery, [
-        p_name,
-        p_phone,
-        p_age,
-        p_email,
-        p_address,
-        p_password,
-      ])
-      emai = p_email
-      console.log('User signed up successfully')
-      res.redirect('/patient')
+      bcrypt.hash( p_password, saltRounds, async function(err, hash) {
+        // Store hash in your password DB.
+        const patientQuery = `
+        INSERT INTO patients (name,phone,age,email,address,password)
+        VALUES (?, ?, ?, ?, ?,?)
+      `
+        signed = true
+  
+        await connection.query(patientQuery, [
+          p_name,
+          p_phone,
+          p_age,
+          p_email,
+          p_address,
+          hash,
+        ])
+        emai = p_email
+        console.log('User signed up successfully')
+        res.redirect('/patient')
+    });
+     
     }
   } catch (error) {
     console.error('Error signing up:', error)
@@ -530,31 +551,43 @@ app.post('/logout', (req, res) => {
 })
 app.post('/plogin', (req, res) => {
   try {
-    const { mailid, password } = req.body
+    const { mailid, password } = req.body;
     const loginQuery = `
-     SELECT * FROM patients WHERE email = ? AND password = ?
-   `
-    connection.query(loginQuery, [mailid, password], (err, results) => {
+     SELECT * FROM patients WHERE email = ?
+   `;
+
+    connection.query(loginQuery, [mailid], async (err, results) => {
       if (err) {
-        console.error('Error fetching user details:', err)
-        res
-          .status(700)
-          .send('No account is corrected with given mail id or wrong password')
+        console.error('Error fetching user details:', err);
+        res.status(500).send('Error fetching user details');
       } else {
         if (results.length > 0) {
-          signed = true
-          emai = mailid
-          res.redirect('/')
+          const storedHashedPassword = results[0].password;
+
+          bcrypt.compare(password, storedHashedPassword, function(err, result) {
+            if (err) {
+              console.error('Error comparing passwords:', err);
+              res.status(500).send('Error authenticating');
+            } else {
+              if (result) {
+                signed = true;
+                emai = mailid;
+                res.redirect('/');
+              } else {
+                res.send('Login failed. Please check your credentials.');
+              }
+            }
+          });
         } else {
-          res.send('Login failed. Please check your credentials.')
+          res.send('Login failed. Please check your credentials.');
         }
       }
-    })
+    });
   } catch (error) {
-    console.error('Error logging in:', error)
-    res.status(600).send('Error signing up')
+    console.error('Error logging in:', error);
+    res.status(500).send('Error signing up');
   }
-})
+});
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
