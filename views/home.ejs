@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
     integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/chat1.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
@@ -17,8 +17,17 @@
   </style>
 </head>
 <body>
+  <!-- Navigation Bar -->
   <%- include("navbar.ejs")-%>
+  
+  <!-- Chat Widget -->
+  <div id="chat-widget">
+    <a>
+      <button onclick="redirectToChatForm()">Chat with Doctor</button>
+    </a>
+  </div>
 
+  <!-- Image Carousel -->
   <div id="carouselExample" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
@@ -46,15 +55,19 @@
     </a>
   </div>
 
+  <!-- Main Content Section -->
   <div class="container text-center mt-5">
     <h1 class="display-4 heading">Welcome to Hello B +ve</h1>
     <p class="intr">"Only doctor is blessed with the magical powers to treat a life,<br>to bring health into our lives</p>
     <p class="int2">and to be there with us when we have lost all the hopes"</p>
   </div>
 
+  <!-- Features Section -->
   <section id="feature" class="py-5 bg-light">
     <div class="container">
+      <!-- Features Grid -->
       <div class="row text-center">
+        <!-- Individual Feature Blocks -->
         <div class="col-md-4 mb-4">
           <div class="fbox">
             <i class="fa fa-phone fa-4x ico" aria-hidden="true"></i>
@@ -69,100 +82,44 @@
             <p class="subt">Our doctors are highly qualified and proficient in their fields.</p>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="fbox">
-            <i class="fa fa-lock fa-4x ico" aria-hidden="true"></i>
-            <h6 class="headn">Encrypted</h6>
-            <p class="subt">Discussions are encrypted and not accessible to third parties.</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="fbox">
-            <i class="fa fa-user-secret fa-4x ico" aria-hidden="true"></i>
-            <h6 class="headn">Secured</h6>
-            <p class="subt">Our website is highly secure, ensuring data and payments are protected.</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="fbox">
-            <i class="fa fa-gift fa-4x ico" aria-hidden="true"></i>
-            <h6 class="headn">Reward</h6>
-            <p class="subt">Get a hello doctor kit with every subscription.</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="fbox">
-            <i class="fa fa-clock fa-4x ico" aria-hidden="true"></i>
-            <h6 class="headn">24/7 Availability</h6>
-            <p class="subt">Access our services and support anytime, anywhere.</p>
-          </div>
-        </div>
+        <!-- More Features Blocks -->
+        <!-- Add more feature blocks here -->
       </div>
     </div>
   </section>
-  
+
+  <!-- Diseases Section -->
   <section id="diseases" class="py-5 bg-light">
     <div class="container">
       <h2 class="text-center mb-4 heading">Major Diseases</h2>
       <div class="row">
+        <!-- Individual Disease Blocks -->
         <div class="col-md-4 mb-4">
-          <a href="/disease/pulmonologist " style="color: black; display: block; text-align: center;">
+          <a href="/disease/pulmonologist" style="color: black; display: block; text-align: center;">
             <img src="/assets/cough.png" alt="" class="cu">
             <h6 class="caps">Cold and Cough</h6>
           </a>
         </div>
         <div class="col-md-4 mb-4">
-          <a href="/disease/dental" style="color: black; display: block; text-align: center;">
-            <img src="/assets/toothache.png" alt="" class="cu">
-            <h6 class="caps">Toothache</h6>
-          </a>
-        </div>
-        <div class="col-md-4 mb-4">
-          <a href="/disease/Psychiatrists" style="color: black; display: block; text-align: center;">
-            <img src="/assets/mental_health.png" alt="" class="cu">
-            <h6 class="caps">Mental Health Counseling</h6>
-          </a>
-        </div>
-        <div class="col-md-4 mb-4">
-          <a href="/disease/fever" style="color: black; display: block; text-align: center;">
-            <img src="/assets/fever.png" alt="" class="cu">
-            <h6 class="caps">Fever</h6>
-          </a>
-        </div>
-        <div class="col-md-4 mb-4">
-          <a href="/disease/Ophthalmologist" style="color: black; display: block; text-align: center;">
-            <img src="/assets/eyeflu.png" alt="" class="cu">
-            <h6 class="caps">Eye-Flu</h6>
-          </a>
-        </div>
-        <div class="col-md-4 mb-4">
-          <a href="/disease/gastroenterologist" style="color: black; display: block; text-align: center;">
-            <img src="/assets/diarrhoea.png" alt="" class="cu">
-            <h6 class="caps">Diarrhoea</h6>
-          </a>
+          <!-- Add more disease blocks here -->
         </div>
       </div>
     </div>
   </section>
   
+  <!-- Footer Section -->
   <%- include("footer")-%>
 
+  <!-- JavaScript Imports -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JavaScript -->
   <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-
-      $('[data-toggle="tooltip"]').on('click', function () {
-        $(this).tooltip('hide')
-      })
-
-      
-    });
-    const carousel = new bootstrap.Carousel(document.getElementById('carouselExampleDark'), {
-      interval: 3000,
-      wrap: true,     
-    });
+    // Function to redirect to the chat form
+    function redirectToChatForm() {
+      window.location.href = './chat';
+    }
   </script>
 </body>
 </html>

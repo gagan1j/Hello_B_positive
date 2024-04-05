@@ -1,32 +1,39 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const ejs = require('ejs')
-const mysql = require('mysql')
-const path = require('path')
-const dotenv = require('dotenv')
-const nodemailer = require('nodemailer')
-const _ = require('lodash')
-const alert = require('alert')
-const bcrypt=require('bcrypt')
-const app = express()
-const saltRounds=10;
-let signed = false
-let emai = ' '
-dotenv.config()
+const express = require('express');
+const bodyParser = require('body-parser');
+const ejs = require('ejs');
+const mysql = require('mysql');
+const path = require('path');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const http = require('http');
+const socketio = require('socket.io');
+const moment = require('moment');
+const formatMessage = require('./message.js');
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 
-app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static('public'))
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(bodyParser.json({ limit: '50mb' }))
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
+const saltRounds = 10;
+let signed = false;
+let emai = ' ';
+
+dotenv.config();
+
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-})
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+});
+
 
 connection.connect((err) => {
   if (err) {
@@ -79,12 +86,13 @@ connection.connect((err) => {
     }
   })
   const questiontablequery = `
-    CREATE TABLE IF NOT EXISTS questions(
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      que varchar(1000) UNIQUE,
-      answer varchar(1000) DEFAULT 'we will answer soon'
-    )
-    `
+  CREATE TABLE IF NOT EXISTS questions(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    que TEXT,
+    answer VARCHAR(1000) DEFAULT 'we will answer soon',
+    UNIQUE(que(255))  -- Specify a key length of 255 characters
+  )
+`
   connection.query(questiontablequery, (err) => {
     if (err) {
       console.error('Error creating questions table:', err)
@@ -109,7 +117,6 @@ connection.connect((err) => {
     }
   })
 })
-
 app.get('/', function (req, res) {
   let name = 'guest'
   if (signed === true) {
@@ -142,7 +149,6 @@ app.get('/', function (req, res) {
     res.render('home', { signed, nm: name })
   }
 })
-
 app.get('/hospitals', function (req, res) {
   let name = 'guest'
   if (signed) {
@@ -280,7 +286,6 @@ app.get('/FAQ', (req, res) => {
       console.error('Error fetching data:', error)
       res.status(500).send('Error fetching data')
     } else {
-      // Render the 'faq' view and pass both sets of data
       res.render('faq', { faqs, faq2, signed, nm: name })
     }
   })
@@ -622,6 +627,42 @@ app.post('/plogin', (req, res) => {
     res.status(500).send('Error signing up');
   }
 });
+
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.get('/chat', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'chat.html'));
+});
+
+const botname = 'HELLO B+';
+
+// Create an object to store connected users
+const connectedUsers = {};
+
+io.on('connection', socket => {
+    console.log('new ws connection...');
+
+    // Listen for the "join" event to associate a username with the socket ID
+    socket.on('join', username => {
+        connectedUsers[socket.id] = username;
+    });
+
+    socket.emit('message', formatMessage(botname, 'Welcome'));
+
+    socket.on('disconnect', () => {
+        // Remove the user from the list of connected users when they disconnect
+        delete connectedUsers[socket.id];
+        console.log("A user disconnected");
+    });
+
+    socket.on('chatMessage', msg => {
+        const username = connectedUsers[socket.id];
+        io.emit('message', formatMessage(username, msg));
+    });
+});
+
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
