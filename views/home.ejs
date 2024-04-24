@@ -14,19 +14,35 @@
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap");
+
+    .sticky-chat-btn {
+  position: fixed;
+  bottom: 20px;
+  width: 120px;
+  height: 60px;
+  right: 20px;
+  background-color: #007bff; /* Adjust as needed */
+  color: white;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.sticky-chat-btn:hover {
+  background-color: #0056b3; /* Adjust as needed */
+}
+
   </style>
 </head>
 <body>
   <!-- Navigation Bar -->
   <%- include("navbar.ejs")-%>
   
-  <!-- Chat Widget -->
-  <div id="chat-widget">
-    <a>
-      <button onclick="redirectToChatForm()">Chat with Doctor</button>
-    </a>
-  </div>
-
+  <button class="sticky-chat-btn" onclick="redirectToChatPage()">Chat</button>
   <!-- Image Carousel -->
   <div id="carouselExample" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -117,9 +133,9 @@
   <!-- Custom JavaScript -->
   <script>
     // Function to redirect to the chat form
-    function redirectToChatForm() {
-      window.location.href = './chat';
-    }
+  function redirectToChatPage() {
+    window.location.href = 'http://localhost:3000'; // Adjust the URL as needed
+  }
   </script>
 </body>
 </html>

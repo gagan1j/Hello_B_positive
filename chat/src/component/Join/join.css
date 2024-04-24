@@ -1,0 +1,66 @@
+.JoinPage{
+    background-color: blue;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.JoinContainer{
+     width: 50%;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+.JoinContainer >img{
+    margin-left: 13px;
+    width: 8vmax;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin-bottom: 2vmax;
+}
+.JoinContainer >h1{
+    color: aliceblue;
+    font-size: 2.2vmax;
+    box-sizing: border-box;
+}
+#joinpassword{
+    width: 20vmax;
+    padding: 1vmax;
+    border :none;
+    outline: none;
+    font-size: 1.2vmax;
+    margin: 0.5vmax;
+    box-sizing: border-box;
+}
+#joinpassword::placeholder {
+    color: #4c9ee0;
+}
+#joininput{
+    width: 20vmax;
+    padding: 1vmax;
+    border :none;
+    outline: none;
+    font-size: 1.2vmax;
+    margin: 0.5vmax;
+    box-sizing: border-box;
+}
+#joininput::placeholder {
+    color: #4c9ee0;
+}
+.login{
+    width: 20vmax;
+    padding: 1vmax;
+    border :none;
+    outline: none;
+    font-size: 1.2vmax;
+    background-color: crimson;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-top: 2vmax;
+}
+.login:hover{
+    background-color: rgb(151, 13, 41);
+
+}

@@ -7,12 +7,11 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const http = require('http');
-const socketio = require('socket.io');
+const socketIo = require('socket.io');
 const moment = require('moment');
-const formatMessage = require('./message.js');
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const cors=require("cors");
 
 const saltRounds = 10;
 let signed = false;
@@ -27,13 +26,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
+// chat code open
+app.use(cors())
+
+
+
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
 });
-
 
 connection.connect((err) => {
   if (err) {
@@ -178,7 +181,7 @@ app.get('/hospitals', function (req, res) {
     }
   })
 })
-
+app.use(cors())
 app.get('/FAQ', (req, res) => {
   let name = 'guest'
   if (signed) {
@@ -628,47 +631,44 @@ app.post('/plogin', (req, res) => {
   }
 });
 
+// chat page code
 
-app.use(express.static(path.join(__dirname, 'public')));
 
+const users = [{}]; // Initialize users array as an empty array
 
-app.get('/chat', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'chat.html'));
+const io = socketIo(server);
+
+app.get("/chat", (req, res) => {
+  res.send("hello");
 });
 
-const botname = 'HELLO B+';
+io.on("connection", (socket) => {
+  console.log("New connection");
 
-// Create an object to store connected users
-const connectedUsers = {};
+  socket.on('joined', ({ user }) => {
+    users[socket.id] = user;
+    console.log(`${user} has joined`);
+    socket.emit('welcome', { user: "Doctor", message: `Welcome to the chat ,${users[socket.id]}`});
+    socket.broadcast.emit('userJoined', { user: "Admin", message: `${users[socket.id]} has Joined` });
+  });
+  
+  
+  socket.on('message',({message,id})=>{
+     io.emit('sendmessage',{user:users[id],message,id});
+  })
 
-io.on('connection', socket => {
-    console.log('new ws connection...');
-
-    // Listen for the "join" event to associate a username with the socket ID
-    socket.on('join', username => {
-        connectedUsers[socket.id] = username;
-    });
-
-    socket.emit('message', formatMessage(botname, 'Welcome'));
-
-    socket.on('disconnect', () => {
-        // Remove the user from the list of connected users when they disconnect
-        delete connectedUsers[socket.id];
-        console.log("A user disconnected");
-    });
-
-    socket.on('chatMessage', msg => {
-        const username = connectedUsers[socket.id];
-        io.emit('message', formatMessage(username, msg));
-    });
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('leave', { user: "Admin", message: `${users[socket.id]} has left` })
+    console.log('user disconnected');
+  });  
 });
 
-const PORT = process.env.PORT || 4000
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
-})
+const PORT = 4000 || process.env.PORT;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(500).send('Something went wrong!')
-})
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});

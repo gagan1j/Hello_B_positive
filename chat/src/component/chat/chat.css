@@ -1,0 +1,104 @@
+.header1 {
+    padding: 10px; 
+    display: flex; 
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.logo {
+    width: 120px; 
+    height: auto;
+    margin-right: 30px; 
+    display: flex;
+}
+
+.nav-buttons {
+    display: flex;
+}
+
+.nav-button {
+    background-color: white; 
+    color: rgb(54, 219, 150); 
+    border: none; 
+    width: 100px;
+    padding: 10px; 
+    border-radius: 25%;
+    margin-right: 10px;
+    margin-left: 20px;
+    cursor: pointer; 
+}
+
+.nav-button:hover {
+    background-color: #ffbb33; /* Change background color on hover */
+}
+.Topheader {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: rgb(22, 25, 196); 
+    height: 10vh; 
+    width: 100%;
+    padding: 0 20px; 
+}
+
+.chatpage {
+    background-color: rgb(0, 153, 255);
+    background-size: 1000px 480px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    width:100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+.chatcontainer{
+    background:white;
+    height: 80%;
+    width: 50%;
+   box-sizing: border-box;
+}
+.header{
+    background-color: rgb(224, 23, 67);
+    height: 15%;
+    box-sizing: border-box;
+    font-size: 3vmax;
+    text-align:left;
+    color: rgb(8, 48, 4);
+}
+
+.chatbox{
+  border: 0.2vmax solid black;
+  height: 80%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.inputbox {
+    height: 10%; /* Adjust the height as needed */
+    box-sizing: border-box;
+    display: flex;
+}
+#chatinput{
+    width: 80%;
+    border: none;
+    background-color:white;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 1.2vmax;
+}
+.sendinput{
+    background-color: rgb(12, 177, 12);
+    color: white;
+    border: none;
+    width: 20.3%;
+    font-size: 1.2vmax;
+}
+.sendinput:hover{
+    background-color: green;
+}
+.sendinput>img{
+    width: 2vmax;
+    filter: brightness(100) invert();
+}

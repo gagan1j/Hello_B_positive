@@ -30,7 +30,7 @@
           />
         </label>
       </div>
-      
+<button class="sticky-chat-btn" onclick="redirectToChatPage('<%= encodeURIComponent(nm) %>')">Chat</button>
       <div class="profile-name"><%= nm %></div>
       <div class="profile-email"><%= pmail %></div>
       <div class="profile-content">
@@ -118,6 +118,15 @@
       }
       typeIntroText();
     </script>
+  <!-- patient_profile.ejs -->
+  <script>
+    // Function to redirect to the chat page with the user's name
+    function redirectToChatPage(userName) {
+
+        window.location.href = `http://localhost:3000`;
+    }
+</script>
+
     <%- include("footer")-%>
   </body>
 </html>
